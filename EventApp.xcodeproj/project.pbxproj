@@ -11,6 +11,10 @@
 		ED38AE3F208F86D500C84BBF /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED38AE3E208F86D500C84BBF /* HomeController.swift */; };
 		ED38AE44208F86D600C84BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED38AE43208F86D600C84BBF /* Assets.xcassets */; };
 		ED38AE47208F86D600C84BBF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED38AE45208F86D600C84BBF /* LaunchScreen.storyboard */; };
+		ED38AE4F208F8C9E00C84BBF /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED38AE4E208F8C9E00C84BBF /* HomeCell.swift */; };
+		ED38AE51208F8D0100C84BBF /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED38AE50208F8D0100C84BBF /* BaseCell.swift */; };
+		ED38AE53208F8EB900C84BBF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED38AE52208F8EB900C84BBF /* Extensions.swift */; };
+		ED38AE55208F91CD00C84BBF /* SeedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED38AE54208F91CD00C84BBF /* SeedData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +24,10 @@
 		ED38AE43208F86D600C84BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ED38AE46208F86D600C84BBF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED38AE48208F86D600C84BBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED38AE4E208F8C9E00C84BBF /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
+		ED38AE50208F8D0100C84BBF /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		ED38AE52208F8EB900C84BBF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		ED38AE54208F91CD00C84BBF /* SeedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +65,10 @@
 				ED38AE43208F86D600C84BBF /* Assets.xcassets */,
 				ED38AE45208F86D600C84BBF /* LaunchScreen.storyboard */,
 				ED38AE48208F86D600C84BBF /* Info.plist */,
+				ED38AE4E208F8C9E00C84BBF /* HomeCell.swift */,
+				ED38AE50208F8D0100C84BBF /* BaseCell.swift */,
+				ED38AE52208F8EB900C84BBF /* Extensions.swift */,
+				ED38AE54208F91CD00C84BBF /* SeedData.swift */,
 			);
 			path = EventApp;
 			sourceTree = "<group>";
@@ -131,7 +143,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED38AE55208F91CD00C84BBF /* SeedData.swift in Sources */,
+				ED38AE53208F8EB900C84BBF /* Extensions.swift in Sources */,
+				ED38AE51208F8D0100C84BBF /* BaseCell.swift in Sources */,
 				ED38AE3F208F86D500C84BBF /* HomeController.swift in Sources */,
+				ED38AE4F208F8C9E00C84BBF /* HomeCell.swift in Sources */,
 				ED38AE3D208F86D500C84BBF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
