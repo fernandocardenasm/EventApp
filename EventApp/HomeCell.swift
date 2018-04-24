@@ -27,7 +27,7 @@ class HomeCell: BaseCell {
     
     var imageOption: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .blue
+        iv.backgroundColor = .black
         return iv
     }()
     
@@ -44,8 +44,8 @@ class HomeCell: BaseCell {
         addSubview(labelOption)
         
         addConstrainstWithFormat("H:|-10-[v0(60)]-10-[v1]|", views: imageOption, labelOption)
-        addConstrainstWithFormat("V:|[v0]|", views: imageOption)
-        addConstrainstWithFormat("V:|[v0]|", views: labelOption)
+        addConstrainstWithFormat("V:|[v0(60)]|", views: imageOption)
+        addConstrainstWithFormat("V:|[v0(60)]|", views: labelOption)
         
     }
     

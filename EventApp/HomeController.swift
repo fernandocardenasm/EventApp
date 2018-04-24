@@ -13,6 +13,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     let cellId = "cellId"
     
     var homeOptions: [HomeOption]?
+    
+    enum BarButtonItems: String {
+        case brief = "brief"
+        case info = "info"
+        case person = "person"
+        case search = "search"
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +30,39 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         homeOptions = SeedData.homeOptions
         
+        setNavigationBar()
+        
+    }
+    
+    func setNavigationBar() {
+        let nav = navigationController?.navigationBar
+        
+        nav?.barStyle = UIBarStyle.black
+        nav?.tintColor = UIColor.white
+        
+        setBarButtonItemsLeft()
+        setBarButtonItemsRigh()
+        
+    }
+    
+    func setBarButtonItemsLeft() {
+        if let imageInfo = UIImage(named: BarButtonItems.info.rawValue), let imageBrief = UIImage(named: BarButtonItems.brief.rawValue) {
+            
+            navigationItem.leftBarButtonItems = [
+                UIBarButtonItem(image: imageInfo, style: .plain, target: self, action: nil),
+                UIBarButtonItem(image: imageBrief, style: .plain, target: self, action: nil)
+            ]
+        }
+    }
+    
+    func setBarButtonItemsRigh() {
+        if let imagePerson = UIImage(named: BarButtonItems.person.rawValue), let imageSearch = UIImage(named: BarButtonItems.search.rawValue) {
+            
+            navigationItem.rightBarButtonItems = [
+                UIBarButtonItem(image: imagePerson, style: .plain, target: self, action: nil),
+                UIBarButtonItem(image: imageSearch, style: .plain, target: self, action: nil)
+            ]
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -44,7 +84,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.frame.width), height: (view.frame.width/6))
+        return CGSize(width: (view.frame.width), height: 65)
     }
     
 
