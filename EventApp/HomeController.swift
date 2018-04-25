@@ -29,6 +29,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     var initialCenterYPosCollectionView: CGFloat?
     
+    var imageViewBackground: UIImageView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,14 +73,22 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             if UIDevice.current.orientation.isLandscape {
                 
                 self.setAdjustPosCollectionView()
+                self.imageViewBackground?.contentMode = .scaleAspectFill
                 
             }
             if UIDevice.current.orientation.isPortrait {
 
                 self.collectionView?.frame = self.initialFrameCollectionView!
-                self.setAdjustPosCollectionView() 
+                self.setAdjustPosCollectionView()
+                self.imageViewBackground?.contentMode = .scaleToFill
+
                 
             }
+            
+            self.updateAlphaCollectionView()
+            
+        self.imageViewBackground?.center = self.view.center
+        
             
         }, completion: nil)
     }
@@ -92,12 +101,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             
             var imageView : UIImageView!
             imageView = UIImageView(frame: view.bounds)
-            imageView.contentMode =  UIViewContentMode.scaleToFill
+            imageView.contentMode =  .scaleToFill
             //        imageView.clipsToBounds = true
             imageView.image = background
             imageView.center = view.center
-            view.addSubview(imageView)
-            view.sendSubview(toBack: imageView)
+            
+            imageViewBackground = imageView
+            
+            view.addSubview(imageViewBackground!)
+            view.sendSubview(toBack: imageViewBackground!)
             
         }
         else{
