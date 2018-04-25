@@ -20,10 +20,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         case person = "person"
         case search = "search"
     }
+    
+    var initialFrameCollectionView: CGRect?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        view.backgroundColor = .blue
+        
         collectionView?.backgroundColor = .gray
         
         collectionView?.register(HomeCell.self, forCellWithReuseIdentifier: cellId)
@@ -32,6 +37,37 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         setNavigationBar()
         
+        //Store initial fram of the view frame
+        initialFrameCollectionView = view.frame
+        
+        setAdjustPosCollectionView()
+        
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        
+        collectionView?.frame = initialFrameCollectionView!
+        
+        coordinator.animate(alongsideTransition: { (_) in
+
+            if UIDevice.current.orientation.isLandscape {
+                
+                self.setAdjustPosCollectionView()
+                
+            }
+            if UIDevice.current.orientation.isPortrait {
+                
+                self.collectionView?.frame = self.initialFrameCollectionView!
+                self.setAdjustPosCollectionView() 
+                
+            }
+            
+        }, completion: nil)
+    }
+    
+    func setAdjustPosCollectionView() {
+        collectionView?.center.y = 2 * (collectionView?.center.y)!
     }
     
     func setNavigationBar() {
@@ -84,8 +120,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.frame.width), height: 65)
+        return CGSize(width: view.frame.width, height: 60.0)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+    }
+    
     
 
 }
