@@ -81,7 +81,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 self.collectionView?.frame = self.initialFrameCollectionView!
                 self.setAdjustPosCollectionView()
                 self.imageViewBackground?.contentMode = .scaleToFill
-
                 
             }
             
@@ -141,9 +140,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             if translation.y > 0 {
                 translatePosCollectionView(sender:sender)
             }
-            
+
         }
-        else if (self.collectionView?.frame.minY)! + (self.collectionView?.visibleCells[3].frame.maxY)! > self.view.frame.height {
+        else
+            if (self.collectionView?.frame.minY)! + (self.collectionView?.visibleCells[2].frame.maxY)! > self.view.frame.height {
             
             if translation.y < 0 {
                 translatePosCollectionView(sender:sender)
