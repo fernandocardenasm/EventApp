@@ -27,7 +27,7 @@ class HomeCell: BaseCell {
     
     var imageOption: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .black
+        iv.backgroundColor = UIColor.rgb(64, green: 64, blue: 64)
         return iv
     }()
     

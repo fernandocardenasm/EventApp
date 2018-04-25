@@ -21,17 +21,24 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         case search = "search"
     }
     
+    enum BackgroundImages: String {
+        case road = "road"
+    }
+    
     var initialFrameCollectionView: CGRect?
+    
+    var initialCenterYPosCollectionView: CGFloat?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        view.backgroundColor = .blue
-        
-        collectionView?.backgroundColor = .gray
+        assignbackground()
         
         collectionView?.register(HomeCell.self, forCellWithReuseIdentifier: cellId)
+        
+        collectionView?.isScrollEnabled = false
         
         homeOptions = SeedData.homeOptions
         
@@ -41,6 +48,17 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         initialFrameCollectionView = view.frame
         
         setAdjustPosCollectionView()
+        
+        initialCenterYPosCollectionView = collectionView?.center.y
+        
+        collectionView?.isUserInteractionEnabled = true
+        updateAlphaCollectionView()
+        
+        addPanGesture(view: view)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         
     }
     
@@ -57,13 +75,95 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 
             }
             if UIDevice.current.orientation.isPortrait {
-                
+
                 self.collectionView?.frame = self.initialFrameCollectionView!
                 self.setAdjustPosCollectionView() 
                 
             }
             
         }, completion: nil)
+    }
+    
+    func assignbackground(){
+        
+        if let backgroundImage = UIImage(named: BackgroundImages.road.rawValue) {
+            
+            let background = backgroundImage
+            
+            var imageView : UIImageView!
+            imageView = UIImageView(frame: view.bounds)
+            imageView.contentMode =  UIViewContentMode.scaleToFill
+            //        imageView.clipsToBounds = true
+            imageView.image = background
+            imageView.center = view.center
+            view.addSubview(imageView)
+            view.sendSubview(toBack: imageView)
+            
+        }
+        else{
+            view.backgroundColor = .gray
+        }
+        
+    }
+    
+    func addPanGesture(view: UIView) {
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan(sender:)))
+        view.addGestureRecognizer(pan)
+    }
+    
+    fileprivate func translatePosCollectionView(sender: UIPanGestureRecognizer) {
+        
+        let optionsCollectionView = collectionView!
+        let translation = sender.translation(in: view!)
+        
+        optionsCollectionView.center = CGPoint(x: optionsCollectionView.center.x, y: optionsCollectionView.center.y + translation.y)
+        sender.setTranslation(CGPoint.zero, in: self.view)
+    }
+    
+    func updatePosCollectionView(sender: UIPanGestureRecognizer) {
+        
+        let translation = sender.translation(in: view!)
+        
+        if (self.collectionView?.frame.minY)! + (self.collectionView?.visibleCells.last?.frame.maxY)! < self.view.frame.height {
+            
+            if translation.y > 0 {
+                translatePosCollectionView(sender:sender)
+            }
+            
+        }
+        else if (self.collectionView?.frame.minY)! + (self.collectionView?.visibleCells[3].frame.maxY)! > self.view.frame.height {
+            
+            if translation.y < 0 {
+                translatePosCollectionView(sender:sender)
+            }
+            
+        }
+        else {
+            translatePosCollectionView(sender:sender)
+        }
+    }
+    
+    
+    @objc func handlePan(sender: UIPanGestureRecognizer){
+        
+        
+        switch sender.state {
+        case .began, .changed:
+            
+            UIView.animate(withDuration: 0.3) {
+                
+                self.updatePosCollectionView(sender: sender)
+                self.updateAlphaCollectionView()
+                
+            }
+            
+            break
+        case .ended:
+            break
+        default:
+            break
+        }
+        
     }
     
     func setAdjustPosCollectionView() {
@@ -99,6 +199,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 UIBarButtonItem(image: imageSearch, style: .plain, target: self, action: nil)
             ]
         }
+    }
+    
+    func updateAlphaCollectionView() {
+        let alphaValue = (collectionView?.frame.minY)! / view.frame.height
+        collectionView?.backgroundColor? = UIColor.rgbWithAlpha(100, green: 100, blue: 100, alpha: 1 - alphaValue)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
